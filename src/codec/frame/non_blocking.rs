@@ -13,9 +13,14 @@ type IOResult<T> = std::io::Result<T>;
 
 impl FrameReadState {
     async fn async_poll<S: AsyncRead + Unpin>(&mut self, stream: &mut S) -> IOResult<usize> {
-        if self.read_idx + self.config.resize_thresh >= self.read_data.len() {
-            self.read_data
-                .resize(self.config.resize_size + self.read_data.len(), 0)
+        let len = self.read_data.len();
+        if self.read_idx + self.config.resize_thresh >= len {
+            let new_len = self.config.resize_size + len;
+            let additional = new_len - len;
+            self.read_data.reserve(additional);
+            unsafe {
+                self.read_data.set_len(new_len);
+            }
         }
         let count = stream.read(&mut self.read_data[self.read_idx..]).await?;
         self.read_idx += count;

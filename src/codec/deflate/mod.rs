@@ -100,6 +100,8 @@ fn gen_low_level_config(conf: &FrameConfig) -> FrameConfig {
         auto_fragment_size: conf.auto_fragment_size,
         merge_frame: false,
         validate_utf8: ValidateUtf8Policy::Off,
+        resize_size: conf.resize_size,
+        resize_thresh: conf.resize_thresh,
         ..Default::default()
     }
 }
