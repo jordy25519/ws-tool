@@ -15,7 +15,7 @@ impl FrameReadState {
     async fn async_poll<S: AsyncRead + Unpin>(&mut self, stream: &mut S) -> IOResult<usize> {
         let len = self.read_data.len();
         if self.read_idx + self.config.resize_thresh >= len {
-            let new_len = self.config.resize_size + len;
+            let new_len = 16_384_usize + len;
             let additional = new_len - len;
             self.read_data.reserve(additional);
             unsafe {

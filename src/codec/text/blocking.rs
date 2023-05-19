@@ -1,6 +1,6 @@
 use crate::{
     codec::{
-        FrameConfig, FrameReadState, FrameWriteState, Split, FrameCodec, FrameRecv, FrameSend,
+        FrameCodec, FrameConfig, FrameReadState, FrameRecv, FrameSend, FrameWriteState, Split,
     },
     errors::{ProtocolError, WsError},
     frame::OpCode,
