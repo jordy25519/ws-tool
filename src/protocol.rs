@@ -330,9 +330,8 @@ pub fn prepare_handshake(
     };
     let mut headers = vec![
         format!(
-            "Host: {}:{}",
+            "Host: {}",
             uri.host().unwrap_or_default(),
-            uri.port_u16().unwrap_or_else(|| mode.default_port())
         ),
         "Upgrade: websocket".to_string(),
         "Connection: Upgrade".to_string(),
